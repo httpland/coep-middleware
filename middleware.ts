@@ -1,10 +1,10 @@
 // Copyright 2023-latest the httpland authors. All rights reserved. MIT license.
 // This module is browser compatible.
 
-import { isString, Middleware, withHeader } from "./deps.ts";
+import { Middleware, withHeader } from "./deps.ts";
 import { COEPDirective, PolicyHeader } from "./constants.ts";
 import { COEP } from "./types.ts";
-import { stringifyCOEP } from "./stringify.ts";
+import { stringifyCOEP } from "./utils.ts";
 
 const DEFAULT_POLICY: COEP = {
   directive: COEPDirective.RequireCorp,
@@ -31,10 +31,7 @@ export function coep(
   options: Options = DEFAULT_OPTIONS,
 ): Middleware {
   const { directive = DEFAULT_POLICY.directive, endpoint } = policy;
-
-  const fieldValue = isString(policy)
-    ? policy
-    : stringifyCOEP({ directive, endpoint });
+  const fieldValue = stringifyCOEP({ directive, endpoint });
   const fieldName = options.reportOnly
     ? PolicyHeader.CrossOriginEmbeddedPolicyReportOnly
     : PolicyHeader.CrossOriginEmbeddedPolicy;
