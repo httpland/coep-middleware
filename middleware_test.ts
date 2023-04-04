@@ -20,8 +20,7 @@ describe("coep", () => {
       response,
       new Response(null, {
         headers: {
-          [PolicyHeader.CrossOriginEmbeddedPolicy]: COEPDirective.RequireCorp +
-            ";",
+          [PolicyHeader.CrossOriginEmbeddedPolicy]: COEPDirective.RequireCorp,
         },
       }),
     ));
@@ -38,8 +37,7 @@ describe("coep", () => {
       response,
       new Response(null, {
         headers: {
-          [PolicyHeader.CrossOriginEmbeddedPolicy]: COEPDirective.UnsafeNone +
-            ";",
+          [PolicyHeader.CrossOriginEmbeddedPolicy]: COEPDirective.UnsafeNone,
         },
       }),
     ));
@@ -58,7 +56,7 @@ describe("coep", () => {
       new Response(null, {
         headers: {
           [PolicyHeader.CrossOriginEmbeddedPolicy]:
-            `${COEPDirective.RequireCorp}; report-to=${endpoint};`,
+            `${COEPDirective.RequireCorp};report-to=${endpoint}`,
         },
       }),
     ));
