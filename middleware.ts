@@ -25,7 +25,27 @@ export interface Options extends Partial<EmbedderPolicy> {
   readonly reportOnly?: boolean;
 }
 
-/** Create cross-origin embedded policy middleware. */
+/** Create cross-origin embedded policy middleware.
+ *
+ * @example
+ * ```ts
+ * import {
+ *   coep,
+ *   type Handler,
+ * } from "https://deno.land/x/coep_middleware@$VERSION/mod.ts";
+ * import { assert } from "https://deno.land/std/testing/asserts.ts";
+ *
+ * declare const request: Request;
+ * declare const handler: Handler;
+ *
+ * const middleware = coep();
+ * const response = await middleware(request, handler);
+ *
+ * assert(response.headers.has("cross-origin-embedded-policy"));
+ * ```
+ *
+ * @throws {TypeError} If the {@link EmbedderPolicy} is invalid.
+ */
 export function coep(options: Options = DEFAULT_OPTIONS): Middleware {
   const {
     value = DEFAULT_OPTIONS.value,
@@ -40,9 +60,7 @@ export function coep(options: Options = DEFAULT_OPTIONS): Middleware {
   return async (request, next) => {
     const response = await next(request);
 
-    if (response.headers.has(fieldName)) {
-      return response;
-    }
+    if (response.headers.has(fieldName)) return response;
 
     return withHeader(response, fieldName, fieldValue);
   };

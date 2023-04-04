@@ -4,7 +4,7 @@ import { EmbedderPolicyValue } from "./constants.ts";
  * @see [HTML living standard, embedder policy](https://html.spec.whatwg.org/multipage/browsers.html#embedder-policy)
  */
 export interface EmbedderPolicy {
-  /** embedder policy value. */
+  /** Embedder policy value. */
   readonly value: `${EmbedderPolicyValue}`;
 
   /** Reporting endpoint name. */

@@ -12,7 +12,8 @@ const enum Param {
 
 /** Serialize {@link EmbedderPolicy} into string.
  * @param Any {@link COEP}.
- * @throws {TypeError}
+ *
+ * @throws {TypeError} If the {@link EmbedderPolicy} is invalid.
  */
 export function stringifyEmbedderPolicy(policy: EmbedderPolicy): string {
   const item = policy2Item(policy);
