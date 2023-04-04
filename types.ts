@@ -1,9 +1,12 @@
-import { COEPDirective } from "./constants.ts";
+import { EmbedderPolicyValue } from "./constants.ts";
 
-export interface COEP {
-  /** `Cross-Origin-Embedded-Policy` header directive. */
-  readonly directive: `${COEPDirective}`;
+/** Embedder policy API.
+ * @see [HTML living standard, embedder policy](https://html.spec.whatwg.org/multipage/browsers.html#embedder-policy)
+ */
+export interface EmbedderPolicy {
+  /** embedder policy value. */
+  readonly value: `${EmbedderPolicyValue}`;
 
-  /** Reporting endpoint. */
-  readonly endpoint?: string;
+  /** Reporting endpoint name. */
+  readonly reportTo?: string;
 }

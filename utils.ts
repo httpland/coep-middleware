@@ -1,35 +1,41 @@
+// Copyright 2023-latest the httpland authors. All rights reserved. MIT license.
+// This module is browser compatible.
+
 import { Item, Key, Parameters, Token } from "./structured/types.ts";
 import { isString } from "./deps.ts";
 import { stringifyItem } from "./structured/stringify.ts";
-import type { COEP } from "./types.ts";
+import type { EmbedderPolicy } from "./types.ts";
 
 const enum Param {
   ReportTo = "report-to",
 }
 
-/** Serialize {@link COEP} into string. */
-export function stringifyCOEP(coep: COEP): string {
-  const item = coep2Item(coep);
+/** Serialize {@link EmbedderPolicy} into string.
+ * @param Any {@link COEP}.
+ * @throws {TypeError}
+ */
+export function stringifyEmbedderPolicy(policy: EmbedderPolicy): string {
+  const item = policy2Item(policy);
 
   try {
     const string = stringifyItem(item);
 
     return string;
   } catch (cause) {
-    throw TypeError(`invalid ${displayCOEP(coep)}.`, { cause });
+    throw TypeError(`invalid ${displayEmbedderPolicy(policy)}.`, { cause });
   }
 }
 
-function displayCOEP(coep: COEP): string {
-  return `COEP ${JSON.stringify(coep, null, 2)}`;
+function displayEmbedderPolicy(policy: EmbedderPolicy): string {
+  return `EmbedderPolicy ${JSON.stringify(policy, null, 2)}`;
 }
 
-export function coep2Item(coep: COEP): Item {
-  const { directive, endpoint } = coep;
-  const parameters = isString(endpoint)
-    ? [[new Key(Param.ReportTo), new Token(endpoint)] as const]
+export function policy2Item(policy: EmbedderPolicy): Item {
+  const { value, reportTo } = policy;
+  const parameters = isString(reportTo)
+    ? [[new Key(Param.ReportTo), new Token(reportTo)] as const]
     : [];
-  const item = new Item([new Token(directive), new Parameters(parameters)]);
+  const item = new Item([new Token(value), new Parameters(parameters)]);
 
   return item;
 }

@@ -2,20 +2,20 @@
 // This module is browser compatible.
 
 import { Middleware, withHeader } from "./deps.ts";
-import { COEPDirective, PolicyHeader } from "./constants.ts";
-import { COEP } from "./types.ts";
-import { stringifyCOEP } from "./utils.ts";
+import { EmbedderPolicyValue, PolicyHeader } from "./constants.ts";
+import { EmbedderPolicy } from "./types.ts";
+import { stringifyEmbedderPolicy } from "./utils.ts";
 
-const DEFAULT_POLICY: COEP = {
-  directive: COEPDirective.RequireCorp,
-};
-
-const DEFAULT_OPTIONS: Options = {
+const DEFAULT_OPTIONS = {
   reportOnly: false,
+  value: EmbedderPolicyValue.RequireCorp,
 };
 
 /** Middleware options. */
-export interface Options {
+export interface Options extends Partial<EmbedderPolicy> {
+  /** @default "required-corp" */
+  readonly value?: `${EmbedderPolicyValue}`;
+
   /** Whether header is report-only or not.
    * Depending on the value, the header will be:
    * - `true`: `Cross-Origin-Embedded-Policy-Report-Only`
@@ -25,14 +25,15 @@ export interface Options {
   readonly reportOnly?: boolean;
 }
 
-/** Create `Cross-Origin-Embedded-Policy` middleware. */
-export function coep(
-  policy: Partial<COEP> = DEFAULT_POLICY,
-  options: Options = DEFAULT_OPTIONS,
-): Middleware {
-  const { directive = DEFAULT_POLICY.directive, endpoint } = policy;
-  const fieldValue = stringifyCOEP({ directive, endpoint });
-  const fieldName = options.reportOnly
+/** Create cross-origin embedded policy middleware. */
+export function coep(options: Options = DEFAULT_OPTIONS): Middleware {
+  const {
+    value = DEFAULT_OPTIONS.value,
+    reportTo,
+    reportOnly = DEFAULT_OPTIONS.reportOnly,
+  } = options;
+  const fieldValue = stringifyEmbedderPolicy({ value, reportTo });
+  const fieldName = reportOnly
     ? PolicyHeader.CrossOriginEmbeddedPolicyReportOnly
     : PolicyHeader.CrossOriginEmbeddedPolicy;
 

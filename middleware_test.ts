@@ -1,8 +1,8 @@
 import { coep } from "./middleware.ts";
 import {
   assert,
-  COEPDirective,
   describe,
+  EmbedderPolicyValue,
   equalsResponse,
   it,
   PolicyHeader,
@@ -20,32 +20,15 @@ describe("coep", () => {
       response,
       new Response(null, {
         headers: {
-          [PolicyHeader.CrossOriginEmbeddedPolicy]: COEPDirective.RequireCorp,
+          [PolicyHeader.CrossOriginEmbeddedPolicy]:
+            EmbedderPolicyValue.RequireCorp,
         },
       }),
     ));
   });
 
   it("should change coep header via arg", async () => {
-    const middleware = coep({ directive: COEPDirective.UnsafeNone });
-    const response = await middleware(
-      new Request("test:"),
-      () => new Response(),
-    );
-
-    assert(equalsResponse(
-      response,
-      new Response(null, {
-        headers: {
-          [PolicyHeader.CrossOriginEmbeddedPolicy]: COEPDirective.UnsafeNone,
-        },
-      }),
-    ));
-  });
-
-  it("should add report-to param via endpoint", async () => {
-    const endpoint = "http://report.test";
-    const middleware = coep({ endpoint });
+    const middleware = coep({ value: EmbedderPolicyValue.UnsafeNone });
     const response = await middleware(
       new Request("test:"),
       () => new Response(),
@@ -56,7 +39,26 @@ describe("coep", () => {
       new Response(null, {
         headers: {
           [PolicyHeader.CrossOriginEmbeddedPolicy]:
-            `${COEPDirective.RequireCorp};report-to=${endpoint}`,
+            EmbedderPolicyValue.UnsafeNone,
+        },
+      }),
+    ));
+  });
+
+  it("should add report-to param via endpoint", async () => {
+    const reportTo = "http://report.test";
+    const middleware = coep({ reportTo });
+    const response = await middleware(
+      new Request("test:"),
+      () => new Response(),
+    );
+
+    assert(equalsResponse(
+      response,
+      new Response(null, {
+        headers: {
+          [PolicyHeader.CrossOriginEmbeddedPolicy]:
+            `${EmbedderPolicyValue.RequireCorp};report-to=${reportTo}`,
         },
       }),
     ));
