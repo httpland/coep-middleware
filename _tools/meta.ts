@@ -6,7 +6,7 @@ export const makeOptions = (version: string): BuildOptions => ({
   compilerOptions: {
     lib: ["dom", "esnext"],
   },
-  typeCheck: false,
+  typeCheck: true,
   entryPoints: ["./mod.ts"],
   outDir: "./npm",
   package: {
@@ -55,6 +55,10 @@ export const makeOptions = (version: string): BuildOptions => ({
       name: "@miyauci/isx",
       version: "1.1.1",
       subPath: "is_string",
+    },
+    "https://deno.land/x/sfv_parser@1.0.0-beta.2/mod.ts": {
+      name: "@httpland/sfv-parser",
+      version: "1.0.0-beta.2",
     },
   },
 });

@@ -1,9 +1,7 @@
 // Copyright 2023-latest the httpland authors. All rights reserved. MIT license.
 // This module is browser compatible.
 
-import { Item, Key, Parameters, Token } from "./structured/types.ts";
-import { isString } from "./deps.ts";
-import { stringifyItem } from "./structured/stringify.ts";
+import { isString, Item, Parameters, stringifySfv, Token } from "./deps.ts";
 import type { EmbedderPolicy } from "./types.ts";
 
 const enum Param {
@@ -19,7 +17,7 @@ export function stringifyEmbedderPolicy(policy: EmbedderPolicy): string {
   const item = policy2Item(policy);
 
   try {
-    const string = stringifyItem(item);
+    const string = stringifySfv(item);
 
     return string;
   } catch (cause) {
@@ -33,10 +31,13 @@ function displayEmbedderPolicy(policy: EmbedderPolicy): string {
 
 export function policy2Item(policy: EmbedderPolicy): Item {
   const { value, reportTo } = policy;
+
   const parameters = isString(reportTo)
-    ? [[new Key(Param.ReportTo), new Token(reportTo)] as const]
-    : [];
-  const item = new Item([new Token(value), new Parameters(parameters)]);
+    ? new Parameters([
+      [Param.ReportTo, new Token(reportTo)],
+    ])
+    : new Parameters([]);
+  const item = new Item([new Token(value), parameters]);
 
   return item;
 }

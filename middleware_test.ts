@@ -46,7 +46,7 @@ describe("coep", () => {
   });
 
   it("should add report-to param via endpoint", async () => {
-    const reportTo = "http://report.test";
+    const reportTo = "default";
     const middleware = coep({ reportTo });
     const response = await middleware(
       new Request("test:"),

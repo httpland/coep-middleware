@@ -11,5 +11,5 @@ export enum EmbedderPolicyValue {
 export const enum PolicyHeader {
   CrossOriginEmbeddedPolicy = "cross-origin-embedded-policy",
   CrossOriginEmbeddedPolicyReportOnly =
-    `${PolicyHeader.CrossOriginEmbeddedPolicy}-report-only`,
+    `cross-origin-embedded-policy-report-only`,
 }
