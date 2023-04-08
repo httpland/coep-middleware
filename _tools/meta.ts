@@ -1,4 +1,4 @@
-import { BuildOptions } from "https://deno.land/x/dnt@0.33.1/mod.ts";
+import { BuildOptions } from "https://deno.land/x/dnt@0.34.0/mod.ts";
 
 export const makeOptions = (version: string): BuildOptions => ({
   test: false,
@@ -56,9 +56,9 @@ export const makeOptions = (version: string): BuildOptions => ({
       version: "1.1.1",
       subPath: "is_string",
     },
-    "https://deno.land/x/sfv_parser@1.0.0-beta.2/mod.ts": {
+    "https://deno.land/x/sfv_parser@1.0.0/mod.ts": {
       name: "@httpland/sfv-parser",
-      version: "1.0.0-beta.2",
+      version: "1.0.0",
     },
   },
 });
