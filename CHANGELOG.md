@@ -1,3 +1,10 @@
+# [1.0.0-beta.2](https://github.com/httpland/coep-middleware/compare/1.0.0-beta.1...1.0.0-beta.2) (2023-04-08)
+
+
+### Features
+
+* **middleware:** change the name of field to `policy` from `value` ([7cf747b](https://github.com/httpland/coep-middleware/commit/7cf747bb2348ccaf3422b3791c68e2e65694d3c6))
+
 # 1.0.0-beta.1 (2023-04-04)
 
 
