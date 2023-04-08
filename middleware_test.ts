@@ -9,6 +9,21 @@ import {
 } from "./_dev_deps.ts";
 
 describe("coep", () => {
+  it("should return same response if the response include the header", async () => {
+    const middleware = coep();
+    const initResponse = new Response(null, {
+      headers: {
+        [PolicyHeader.CrossOriginEmbeddedPolicy]: "",
+      },
+    });
+    const response = await middleware(
+      new Request("test:"),
+      () => initResponse,
+    );
+
+    assert(response === initResponse);
+  });
+
   it("should return response what include coep header and the value is require-corp by default", async () => {
     const middleware = coep();
     const response = await middleware(
@@ -59,6 +74,24 @@ describe("coep", () => {
         headers: {
           [PolicyHeader.CrossOriginEmbeddedPolicy]:
             `${EmbedderPolicyValue.RequireCorp};report-to=${reportTo}`,
+        },
+      }),
+    ));
+  });
+
+  it("should change to report only header", async () => {
+    const middleware = coep({ reportOnly: true });
+    const response = await middleware(
+      new Request("test:"),
+      () => new Response(),
+    );
+
+    assert(equalsResponse(
+      response,
+      new Response(null, {
+        headers: {
+          [PolicyHeader.CrossOriginEmbeddedPolicyReportOnly]:
+            EmbedderPolicyValue.RequireCorp,
         },
       }),
     ));
