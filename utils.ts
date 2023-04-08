@@ -33,10 +33,10 @@ export function policy2Item(policy: EmbedderPolicy): Item {
   const { value, reportTo } = policy;
 
   const parameters = isString(reportTo)
-    ? new Parameters([
-      [Param.ReportTo, new Token(reportTo)],
-    ])
-    : new Parameters([]);
+    ? new Parameters({
+      [Param.ReportTo]: new Token(reportTo),
+    })
+    : new Parameters();
   const item = new Item([new Token(value), parameters]);
 
   return item;

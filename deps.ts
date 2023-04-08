@@ -12,4 +12,4 @@ export {
   Parameters,
   stringifySfv,
   Token,
-} from "https://deno.land/x/sfv_parser@1.0.0-beta.2/mod.ts";
+} from "https://deno.land/x/sfv_parser@1.0.0/mod.ts";
