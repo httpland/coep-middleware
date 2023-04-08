@@ -13,7 +13,7 @@ describe("coep", () => {
     const middleware = coep();
     const initResponse = new Response(null, {
       headers: {
-        [PolicyHeader.CrossOriginEmbeddedPolicy]: "",
+        [PolicyHeader.CrossOriginEmbedderPolicy]: "",
       },
     });
     const response = await middleware(
@@ -35,7 +35,7 @@ describe("coep", () => {
       response,
       new Response(null, {
         headers: {
-          [PolicyHeader.CrossOriginEmbeddedPolicy]:
+          [PolicyHeader.CrossOriginEmbedderPolicy]:
             EmbedderPolicyValue.RequireCorp,
         },
       }),
@@ -53,7 +53,7 @@ describe("coep", () => {
       response,
       new Response(null, {
         headers: {
-          [PolicyHeader.CrossOriginEmbeddedPolicy]:
+          [PolicyHeader.CrossOriginEmbedderPolicy]:
             EmbedderPolicyValue.UnsafeNone,
         },
       }),
@@ -72,7 +72,7 @@ describe("coep", () => {
       response,
       new Response(null, {
         headers: {
-          [PolicyHeader.CrossOriginEmbeddedPolicy]:
+          [PolicyHeader.CrossOriginEmbedderPolicy]:
             `${EmbedderPolicyValue.RequireCorp};report-to=${reportTo}`,
         },
       }),
@@ -90,7 +90,7 @@ describe("coep", () => {
       response,
       new Response(null, {
         headers: {
-          [PolicyHeader.CrossOriginEmbeddedPolicyReportOnly]:
+          [PolicyHeader.CrossOriginEmbedderPolicyReportOnly]:
             EmbedderPolicyValue.RequireCorp,
         },
       }),

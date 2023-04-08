@@ -1,7 +1,7 @@
 // Copyright 2023-latest the httpland authors. All rights reserved. MIT license.
 // This module is browser compatible.
 
-/** Cross-origin embedded policy value.
+/** Cross-origin embedder policy value.
  * @see [embedder policy value](https://html.spec.whatwg.org/multipage/browsers.html#embedder-policy-value)
  */
 export enum EmbedderPolicyValue {
@@ -22,7 +22,7 @@ export enum EmbedderPolicyValue {
 }
 
 export const enum PolicyHeader {
-  CrossOriginEmbeddedPolicy = "cross-origin-embedded-policy",
-  CrossOriginEmbeddedPolicyReportOnly =
-    `${PolicyHeader.CrossOriginEmbeddedPolicy}-report-only`,
+  CrossOriginEmbedderPolicy = "cross-origin-embedder-policy",
+  CrossOriginEmbedderPolicyReportOnly =
+    `${PolicyHeader.CrossOriginEmbedderPolicy}-report-only`,
 }

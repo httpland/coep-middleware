@@ -9,10 +9,10 @@
 [![test](https://github.com/httpland/coep-middleware/actions/workflows/test.yaml/badge.svg)](https://github.com/httpland/coep-middleware/actions/workflows/test.yaml)
 [![NPM](https://nodei.co/npm/@httpland/coep-middleware.png?mini=true)](https://nodei.co/npm/@httpland/coep-middleware/)
 
-HTTP cross-origin embedded policy(COEP) middleware.
+HTTP cross-origin embedder policy(COEP) middleware.
 
 Compliant with
-[HTML living standard, 7.1.4 Cross-origin embedder policies](https://html.spec.whatwg.org/multipage/browsers.html#coep).
+[HTML Living Standard, 7.1.4 Cross-origin embedder policies](https://html.spec.whatwg.org/multipage/browsers.html#coep).
 
 ## Middleware
 
@@ -21,7 +21,7 @@ For a definition of Universal HTTP middleware, see the
 
 ## Usage
 
-Middleware adds the `Cross-Origin-Embedded-Policy` header to the response.
+Middleware adds the `Cross-Origin-Embedder-Policy` header to the response.
 
 ```ts
 import {
@@ -36,13 +36,13 @@ declare const handler: Handler;
 const middleware = coep();
 const response = await middleware(request, handler);
 
-assert(response.headers.has("cross-origin-embedded-policy"));
+assert(response.headers.has("cross-origin-embedder-policy"));
 ```
 
 yield:
 
 ```http
-Cross-Origin-Embedded-Policy: require-corp
+Cross-Origin-Embedder-Policy: require-corp
 ```
 
 ## Options
@@ -58,7 +58,7 @@ The middleware factory accepts the following fields:
 ### policy
 
 If specified, change the
-[embedded policy value](https://html.spec.whatwg.org/multipage/browsers.html#embedder-policy).
+[embedder policy value](https://html.spec.whatwg.org/multipage/browsers.html#embedder-policy).
 
 ```ts
 import { coep } from "https://deno.land/x/coep_middleware@$VERSION/middleware.ts";
@@ -69,7 +69,7 @@ const middleware = coep({ policy: "credentialless" });
 yield:
 
 ```http
-Cross-Origin-Embedded-Policy: credentialless
+Cross-Origin-Embedder-Policy: credentialless
 ```
 
 ### reportTo
@@ -85,7 +85,7 @@ const middleware = coep({ reportTo: "default" });
 yield:
 
 ```http
-Cross-Origin-Embedded-Policy: require-corp;report-to=default
+Cross-Origin-Embedder-Policy: require-corp;report-to=default
 ```
 
 ### reportOnly
@@ -94,8 +94,8 @@ Depending on the value, the header will be:
 
 | Value   | Field name                                 |
 | ------- | ------------------------------------------ |
-| `true`  | `Cross-Origin-Embedded-Policy-Report-Only` |
-| `false` | `Cross-Origin-Embedded-Policy`             |
+| `true`  | `Cross-Origin-Embedder-Policy-Report-Only` |
+| `false` | `Cross-Origin-Embedder-Policy`             |
 
 ```ts
 import { coep } from "https://deno.land/x/coep_middleware@$VERSION/middleware.ts";
@@ -106,7 +106,7 @@ const middleware = coep({ reportOnly: true });
 yield:
 
 ```http
-Cross-Origin-Embedded-Policy-Report-Only: require-corp
+Cross-Origin-Embedder-Policy-Report-Only: require-corp
 ```
 
 ### Throwing error
@@ -130,16 +130,16 @@ assertThrows(() => coep({ reportTo: "<invalid>" }));
 
 Middleware will execute if all of the following conditions are met:
 
-- Response does not include `Cross-Origin-Embedded-Policy` header
-- Response does not include `Cross-Origin-Embedded-Policy-Report-Only` header
+- Response does not include `Cross-Origin-Embedder-Policy` header
+- Response does not include `Cross-Origin-Embedder-Policy-Report-Only` header
 
 ## Effects
 
 Middleware may make changes to the following elements of the HTTP message.
 
 - HTTP Headers
-  - Cross-Origin-Embedded-Policy
-  - Cross-Origin-Embedded-Policy-Report-Only
+  - Cross-Origin-Embedder-Policy
+  - Cross-Origin-Embedder-Policy-Report-Only
 
 ## API
 

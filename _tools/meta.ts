@@ -12,15 +12,15 @@ export const makeOptions = (version: string): BuildOptions => ({
   package: {
     name: "@httpland/coep-middleware",
     version,
-    description: "HTTP cross-origin embedded policy(COEP) middleware",
+    description: "HTTP cross-origin embedder policy(COEP) middleware",
     keywords: [
       "http",
       "middleware",
       "header",
       "coep",
       "cross-origin",
-      "cross-origin-embedded-policy",
-      "cross-origin-embedded-policy-report-only",
+      "cross-origin-embedder-policy",
+      "cross-origin-embedder-policy-report-only",
       "policy",
       "security",
       "fetch-api",

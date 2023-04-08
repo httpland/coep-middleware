@@ -19,14 +19,14 @@ export interface Options extends Partial<Pick<EmbedderPolicy, "reportTo">> {
 
   /** Whether header is report-only or not.
    * Depending on the value, the header will be:
-   * - `true`: `Cross-Origin-Embedded-Policy-Report-Only`
-   * - `false`: `Cross-Origin-Embedded-Policy`
+   * - `true`: `Cross-Origin-Embedder-Policy-Report-Only`
+   * - `false`: `Cross-Origin-Embedder-Policy`
    * @default false
    */
   readonly reportOnly?: boolean;
 }
 
-/** Create cross-origin embedded policy middleware.
+/** Create cross-origin embedder policy middleware.
  *
  * @example
  * ```ts
@@ -42,7 +42,7 @@ export interface Options extends Partial<Pick<EmbedderPolicy, "reportTo">> {
  * const middleware = coep();
  * const response = await middleware(request, handler);
  *
- * assert(response.headers.has("cross-origin-embedded-policy"));
+ * assert(response.headers.has("cross-origin-embedder-policy"));
  * ```
  *
  * @throws {TypeError} If the {@link Options.reportTo} is invalid.
@@ -55,8 +55,8 @@ export function coep(options: Options = DEFAULT_OPTIONS): Middleware {
   } = options;
   const fieldValue = stringifyEmbedderPolicy({ value, reportTo });
   const fieldName = reportOnly
-    ? PolicyHeader.CrossOriginEmbeddedPolicyReportOnly
-    : PolicyHeader.CrossOriginEmbeddedPolicy;
+    ? PolicyHeader.CrossOriginEmbedderPolicyReportOnly
+    : PolicyHeader.CrossOriginEmbedderPolicy;
 
   return async (request, next) => {
     const response = await next(request);
