@@ -8,13 +8,14 @@ import { stringifyEmbedderPolicy } from "./utils.ts";
 
 const DEFAULT_OPTIONS = {
   reportOnly: false,
-  value: EmbedderPolicyValue.RequireCorp,
+  policy: EmbedderPolicyValue.RequireCorp,
 };
 
 /** Middleware options. */
-export interface Options extends Partial<EmbedderPolicy> {
-  /** @default "required-corp" */
-  readonly value?: `${EmbedderPolicyValue}`;
+export interface Options extends Partial<Pick<EmbedderPolicy, "reportTo">> {
+  /** Embedder policy.
+   * @default "required-corp" */
+  readonly policy?: `${EmbedderPolicyValue}`;
 
   /** Whether header is report-only or not.
    * Depending on the value, the header will be:
@@ -44,11 +45,11 @@ export interface Options extends Partial<EmbedderPolicy> {
  * assert(response.headers.has("cross-origin-embedded-policy"));
  * ```
  *
- * @throws {TypeError} If the {@link EmbedderPolicy} is invalid.
+ * @throws {TypeError} If the {@link Options.reportTo} is invalid.
  */
 export function coep(options: Options = DEFAULT_OPTIONS): Middleware {
   const {
-    value = DEFAULT_OPTIONS.value,
+    policy: value = DEFAULT_OPTIONS.policy,
     reportTo,
     reportOnly = DEFAULT_OPTIONS.reportOnly,
   } = options;

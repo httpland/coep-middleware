@@ -28,7 +28,7 @@ describe("coep", () => {
   });
 
   it("should change coep header via arg", async () => {
-    const middleware = coep({ value: EmbedderPolicyValue.UnsafeNone });
+    const middleware = coep({ policy: EmbedderPolicyValue.UnsafeNone });
     const response = await middleware(
       new Request("test:"),
       () => new Response(),

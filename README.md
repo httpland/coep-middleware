@@ -51,11 +51,11 @@ The middleware factory accepts the following fields:
 
 | Name       | Type                                                            |     Default      | Description                           |
 | ---------- | --------------------------------------------------------------- | :--------------: | ------------------------------------- |
-| value      | `"require-corp"` &#124; `"unsafe-none"` &#124; `credentialless` | `"require-corp"` | Embedder policy value.                |
+| policy     | `"require-corp"` &#124; `"unsafe-none"` &#124; `credentialless` | `"require-corp"` | Embedder policy value.                |
 | reportTo   | `string`                                                        |        -         | Reporting endpoint name.              |
 | reportOnly | `boolean`                                                       |     `false`      | Whether header is report-only or not. |
 
-### value
+### policy
 
 If specified, change the
 [embedded policy value](https://html.spec.whatwg.org/multipage/browsers.html#embedder-policy).
@@ -63,7 +63,7 @@ If specified, change the
 ```ts
 import { coep } from "https://deno.land/x/coep_middleware@$VERSION/middleware.ts";
 
-const middleware = coep({ value: "credentialless" });
+const middleware = coep({ policy: "credentialless" });
 ```
 
 yield:
