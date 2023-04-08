@@ -23,5 +23,9 @@
   "deno.codeLens.implementations": true,
   "deno.codeLens.testArgs": [
     "--allow-all"
+  ],
+  "cSpell.words": [
+    "credentialless",
+    "embedder"
   ]
 }
